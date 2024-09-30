@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critères de sortie - Sélectionnez les bons critères</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #resultMessage {
+            display: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menu de navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="criteria-entry.html">Critères d'entrée</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="criteria-exit.html">Critères de sortie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="case-study.html">Étude de cas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="quiz.html">Quiz</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="my-5 text-center">Critères de sortie</h1>
+
+    <p>Voici une liste de critères. Sélectionnez ceux qui sont corrects pour terminer une phase de test :</p>
+
+    <!-- Critères à sélectionner -->
+    <form id="criteriaForm">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria1" value="correct">
+            <label class="form-check-label" for="criteria1">Tous les tests planifiés ont été exécutés</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria2" value="incorrect">
+            <label class="form-check-label" for="criteria2">L'environnement de test est prêt</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria3" value="correct">
+            <label class="form-check-label" for="criteria3">Tous les défauts critiques ont été corrigés</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria4" value="incorrect">
+            <label class="form-check-label" for="criteria4">Les ressources de test sont disponibles</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria5" value="correct">
+            <label class="form-check-label" for="criteria5">Les tests de régression ont été terminés avec succès</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria6" value="correct">
+            <label class="form-check-label" for="criteria6">Le niveau de couverture de test attendu a été atteint</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria7" value="incorrect">
+            <label class="form-check-label" for="criteria7">Le budget a été validé</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria8" value="correct">
+            <label class="form-check-label" for="criteria8">Les parties prenantes ont validé les résultats des tests</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="criteria9" value="incorrect">
+            <label class="form-check-label" for="criteria9">Le produit est prêt pour la mise en production</label>
+        </div>
+
+        <!-- Bouton pour vérifier les réponses -->
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-success" id="submitCriteria">Vérifier les critères</button>
+        </div>
+    </form>
+
+    <!-- Message de résultat -->
+    <div id="resultMessage" class="text-center mt-4"></div>
+</div>
+
+<!-- Pied de page avec le copyright -->
+<footer>
+    &copy; Belhaj Ouajdi 2024
+</footer>
+
+<!-- JavaScript -->
+<script>
+    document.getElementById('submitCriteria').addEventListener('click', function() {
+        let correctAnswers = 0;
+        let totalCorrect = 5; // Nombre total de bons critères de sortie
+        let incorrectSelected = false;
+
+        const selectedCriteria = document.querySelectorAll('input[type="checkbox"]:checked');
+
+        selectedCriteria.forEach(criteria => {
+            if (criteria.value === 'correct') {
+                correctAnswers++;
+            } else if (criteria.value === 'incorrect') {
+                incorrectSelected = true;
+            }
+        });
+
+        let resultMessage = document.getElementById('resultMessage');
+
+        // Vérification des résultats
+        if (incorrectSelected) {
+            resultMessage.innerText = "Vous avez sélectionné des critères incorrects. Veuillez réessayer.";
+            resultMessage.style.color = "red";
+        } else if (correctAnswers === totalCorrect) {
+            resultMessage.innerText = "Bravo ! Vous avez sélectionné tous les bons critères de sortie.";
+            resultMessage.style.color = "green";
+        } else {
+            resultMessage.innerText = "Vous avez sélectionné " + correctAnswers + "/" + totalCorrect + " bons critères de sortie. Essayez encore.";
+            resultMessage.style.color = "orange";
+        }
+
+        resultMessage.style.display = 'block';
+        gsap.from("#resultMessage", { duration: 1, opacity: 0, y: -50 });
+    });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
